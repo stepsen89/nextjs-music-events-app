@@ -1,7 +1,9 @@
-export default function [slug]() {
+import Layout from "../../components/Layout";
+
+export default function details() {
   return (
-    <div>
-      
-    </div>
-  )
+    <Layout title='Event Detail'>
+      <h2> Event Details Page </h2>
+    </Layout>
+  );
 }
