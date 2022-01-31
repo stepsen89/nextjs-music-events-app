@@ -3,7 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 // styles
-import styles from "../styles/Layout.module.css";
+import styles from "@/styles/Layout.module.css";
 
 export default function Layout({ title, keywords, description, children }) {
   return (
