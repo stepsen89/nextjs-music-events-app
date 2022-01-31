@@ -1,5 +1,7 @@
 import Layout from "/components/Layout";
 import Head from 'next/head';
+import EventItem from "@/components/EventItem";
+import Link from "next/link";
 
 import { API_URL } from '@/config/index';
 
@@ -9,6 +11,16 @@ export default function Home({ events }) {
       {/* <Head> <title> DJ Events </title></Head> */}
       <Layout>
         <h1> Upcoming events </h1>
+        {events.length === 0 && <h3> No events to show </h3>}
+        {events.map(evt => (
+          <EventItem key={evt.id} evt={evt} />
+        ))}
+        {events.length > 0 && (
+          <Link href='/events'>
+            <a className="btn-secondary"> View all events </a>
+          </Link>
+        )}
+
       </Layout>
     </div>
   );
@@ -32,7 +44,7 @@ export async function getStaticProps() {
   const events = await res.json()
 
   return {
-    props: { events },
+    props: { events: events.slice(0, 3) },
     revalidate: 1 // revalidates after a certain number of seconds
   }
 }
