@@ -1,20 +1,42 @@
 import Layout from "@/components/Layout";
 import { API_URL } from "@/config/index";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { FaPencilAlt, FaTimes } from "react-icons/fa";
 import styles from "@/styles/Event.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
+import { useRouter } from "next/router";
+
 export default function EventsPage({ evt }) {
-  const deleteEvent = (e) => {
-    console.log("delete");
+  const router = useRouter();
+
+  console.log(evt);
+
+  const deleteEvent = async (e) => {
+    if (confirm("Are you sure?")) {
+      const res = await fetch(`${API_URL}/events/${evt.id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.message);
+      } else {
+        router.push("/events");
+      }
+    }
   };
+
+  const eventData = evt.attributes;
   return (
     <Layout title="Event Detail">
       <div className={styles.event}>
         <div className={styles.controls}>
-          <Link href={`/events/edit/${evt.id}`}>
+          <Link href={`/events/edit/${eventData.id}`}>
             <a>
               {" "}
               <FaPencilAlt /> Edit Event
@@ -25,29 +47,31 @@ export default function EventsPage({ evt }) {
           </a>
         </div>
         <span>
-          {new Date(evt.date).toLocaleDateString("en-GB")} at {evt.time}
+          {new Date(eventData.date).toLocaleDateString("en-GB")} at{" "}
+          {eventData.time}
         </span>
-        <h1> {evt.name}</h1>
-        {evt.image && evt.image.date && (
+        <h1> {eventData.name}</h1>
+        <ToastContainer />
+        {eventData.image && eventData.image.date && (
           <div className={styles.image}>
             <Image
               src={
-                evt.image &&
-                evt.image.data &&
-                evt.image.data.attributes.formats.medium.url
+                eventData.image &&
+                eventData.image.data &&
+                eventData.image.data.attributes.formats.medium.url
               }
               width={960}
               height={600}
-              alt={evt.name}
+              alt={eventData.name}
             />
           </div>
         )}
         <h3> Performers: </h3>
-        <p> {evt.performers}</p>
+        <p> {eventData.performers}</p>
         <h3> Description: </h3>
-        <p> {evt.description}</p>
-        <h3> Venue: {evt.venue} </h3>
-        <p>{evt.address}</p>
+        <p> {eventData.description}</p>
+        <h3> Venue: {eventData.venue} </h3>
+        <p>{eventData.address}</p>
         <Link href="/events">
           <a className={styles.back}> {"<"} Go Back </a>
         </Link>
@@ -74,7 +98,7 @@ export async function getStaticProps({ params: { slug } }) {
   );
   const json = await res.json();
   const evt = json.data[0];
-  return { props: { evt: evt.attributes } };
+  return { props: { evt: evt } };
 }
 
 // export async function getServerSideProps({ query: { slug } }) {
