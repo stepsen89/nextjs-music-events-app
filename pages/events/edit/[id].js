@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Modal from "@/components/Modal";
 
 import moment from "moment";
 
@@ -16,7 +17,6 @@ import styles from "@/styles/Form.module.css";
 import Image from "next/image";
 
 export default function EditEventPage({ evt }) {
-  console.log(evt);
   const [values, setValues] = useState({
     name: evt.attributes.name,
     performers: evt.attributes.performers,
@@ -33,11 +33,12 @@ export default function EditEventPage({ evt }) {
       : null
   );
 
+  const [showModal, setShowModal] = useState(false);
+
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("object", values);
     // validation - check if values object has an empty field
     const hasEmptyFields = Object.values(values).some(
       (element) => element === ""
@@ -60,7 +61,6 @@ export default function EditEventPage({ evt }) {
     } else {
       const data = await res.json();
       const evt = data.data;
-      console.log(evt);
       router.push(`/events/${evt.attributes.slug}`);
     }
   };
@@ -154,7 +154,7 @@ export default function EditEventPage({ evt }) {
       </form>
       <h2> Event Image: </h2>
       {imagePreview ? (
-        <Image src={imagePreview} height={100} width={170} />
+        <Image src={imagePreview} height={100} width={170} alt={values.name} />
       ) : (
         <div>
           {" "}
@@ -162,11 +162,16 @@ export default function EditEventPage({ evt }) {
         </div>
       )}
       <div>
-        <button className="btn-secondary">
+        <button onClick={() => setShowModal(true)} className="btn-secondary">
           {" "}
           <FaImage /> Set Image{" "}
         </button>{" "}
       </div>
+
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
+        {" "}
+        IMAGE UPLOAD
+      </Modal>
     </Layout>
   );
 }
