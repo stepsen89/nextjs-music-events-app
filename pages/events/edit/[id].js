@@ -12,6 +12,7 @@ import Layout from "@/components/Layout";
 import { API_URL } from "@/config/index";
 
 import { FaImage } from "react-icons/fa";
+import ImageUpload from "@/components/ImageUpload";
 
 import styles from "@/styles/Form.module.css";
 import Image from "next/image";
@@ -37,6 +38,16 @@ export default function EditEventPage({ evt }) {
 
   const router = useRouter();
 
+  const imageUploaded = async (e) => {
+    const res = await fetch(`${API_URL}/events/${evt.id}?populate=*`);
+    const fullData = await res.json();
+    const data = fullData.data;
+    console.log(data);
+    setImagePreview(
+      data.attributes.image.data.attributes.formats.thumbnail.url
+    );
+    setShowModal(false);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     // validation - check if values object has an empty field
@@ -170,7 +181,7 @@ export default function EditEventPage({ evt }) {
 
       <Modal show={showModal} onClose={() => setShowModal(false)}>
         {" "}
-        IMAGE UPLOAD
+        <ImageUpload evtId={evt.id} imageUploaded={imageUploaded} />
       </Modal>
     </Layout>
   );
