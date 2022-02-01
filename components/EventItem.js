@@ -17,7 +17,6 @@ export default function EventItem({ evt }) {
         <Link href={`/events/${evt.slug}`}>
           <a className="btn"> Details </a>
         </Link>
-        {console.log(evt.slug)}
       </div>
     </div>
   )

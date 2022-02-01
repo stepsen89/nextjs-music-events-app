@@ -53,18 +53,14 @@ export async function getStaticPaths() {
     params: { slug: evt.attributes.slug }
   }))
 
-  console.log(paths);
 
   return { paths, fallback: false }
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  console.log(slug);
   const res = await fetch(`${API_URL}/events?filters[slug][$eq]=${slug}&populate=*`)
   const json = await res.json();
   const evt = json.data[0];
-  console.log("evt in props");
-  console.log(evt);
   return { props: { evt: evt.attributes } }
 }
 
