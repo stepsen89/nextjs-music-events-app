@@ -14,8 +14,6 @@ import { useRouter } from "next/router";
 export default function EventsPage({ evt }) {
   const router = useRouter();
 
-  console.log(evt);
-
   const deleteEvent = async (e) => {
     if (confirm("Are you sure?")) {
       const res = await fetch(`${API_URL}/events/${evt.id}`, {
@@ -32,6 +30,7 @@ export default function EventsPage({ evt }) {
   };
 
   const eventData = evt.attributes;
+
   return (
     <Layout title="Event Detail">
       <div className={styles.event}>
@@ -52,7 +51,7 @@ export default function EventsPage({ evt }) {
         </span>
         <h1> {eventData.name}</h1>
         <ToastContainer />
-        {eventData.image && eventData.image.date && (
+        {eventData.image && eventData.image.data && (
           <div className={styles.image}>
             <Image
               src={
