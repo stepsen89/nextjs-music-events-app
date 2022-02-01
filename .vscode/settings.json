@@ -21,5 +21,6 @@
   "peacock.color": "#ff3d00",
   "eslint.format.enable": true,
   "eslint.lintTask.enable": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.showUnused": false
 }
