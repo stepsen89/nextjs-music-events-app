@@ -23,7 +23,7 @@ export default function AddEventPage({ token }) {
   });
 
   const router = useRouter();
-  console.log(token);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // validation - check if values object has an empty field
@@ -45,8 +45,6 @@ export default function AddEventPage({ token }) {
       body: JSON.stringify({ data: values }),
     });
 
-    console.log(values);
-
     if (!res.ok) {
       if (res.status === 403 || res.status === 401) {
         toast.error("No token provided");
@@ -55,9 +53,7 @@ export default function AddEventPage({ token }) {
       toast.error("Something went wrong");
     } else {
       const data = await res.json();
-      console.log(evt);
-      const evt = data.data.attributes;
-      router.push(`/events/${evt.slug}`);
+      router.push(`/events/${data.slug}`);
     }
   };
 
