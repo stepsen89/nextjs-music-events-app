@@ -10,7 +10,6 @@ import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 export default function Header() {
   const { user, logout } = useContext(AuthContext);
 
-  console.log(user);
   return (
     <header className={styles.header}>
       <div className={styles.logo}>

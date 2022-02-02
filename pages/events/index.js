@@ -66,14 +66,12 @@ export async function getServerSideProps({ query: { page = 1 } }) {
       encodeValuesOnly: true,
     }
   );
-  console.log(page);
   const res = await fetch(
     `${API_URL}/events?${query}&populate=*&_sort=date:ASC`
   );
   const json = await res.json();
   const events = json.data;
   const total = json.meta.pagination.total;
-  console.log(json);
   return {
     props: { evts: events, total, page },
   };

@@ -101,7 +101,6 @@ export async function getStaticProps({ params: { slug } }) {
 }
 
 // export async function getServerSideProps({ query: { slug } }) {
-//   console.log(slug);
 //   const res = await fetch(`${API_URL}/api/events/${slug}`)
 
 //   const events = await res.json();

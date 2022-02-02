@@ -42,7 +42,6 @@ export default function EditEventPage({ evt }) {
     const res = await fetch(`${API_URL}/events/${evt.id}?populate=*`);
     const fullData = await res.json();
     const data = fullData.data;
-    console.log(data);
     setImagePreview(
       data.attributes.image.data.attributes.formats.thumbnail.url
     );
@@ -190,8 +189,6 @@ export default function EditEventPage({ evt }) {
 export async function getServerSideProps({ params: { id }, req }) {
   const res = await fetch(`${API_URL}/events/${id}?populate=*`);
   const evt = await res.json();
-
-  console.log(req.headers.cookie);
 
   return {
     props: { evt: evt.data },
