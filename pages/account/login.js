@@ -14,10 +14,20 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const { login, error } = useContext(AuthContext);
 
+  useEffect(() => error && toast.error(error));
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    login({ email, password });
+    const hasEmptyFields = Object.values({ email, password }).some(
+      (element) => element === ""
+    );
+    if (hasEmptyFields) {
+      toast.error("Missing fields");
+    } else {
+      login({ email, password });
+    }
   };
+
   return (
     <Layout title="Login">
       <div className={styles.auth}>
