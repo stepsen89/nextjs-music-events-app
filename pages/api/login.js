@@ -18,7 +18,8 @@ export default async (req, res) => {
 
     const strapiData = await strapiRes.json();
 
-    if (strapiData?.user) {
+    console.log("strapiData", strapiRes);
+    if (strapiRes.status === 200) {
       // set cookie
       res.setHeader(
         "Set-Cookie",
@@ -32,7 +33,6 @@ export default async (req, res) => {
       );
       res.status(200).json({ user: strapiData?.user });
     } else {
-      console.log(strapiData.error.details.errors);
       res
         .status(strapiData?.error?.status)
         .json({ message: strapiData?.error?.message });
