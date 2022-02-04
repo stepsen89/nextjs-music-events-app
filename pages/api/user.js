@@ -20,10 +20,11 @@ export default async (req, res) => {
 
     const user = await strapiRes.json();
 
+    console.log(strapiRes);
     if (strapiRes.status === 200) {
       res.status(200).json({ user: user });
     } else {
-      res.status(403).json({ message: "Forbidden" });
+      return;
     }
   } else {
     res.header("Allow", ["GET"]);
