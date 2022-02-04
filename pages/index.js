@@ -1,16 +1,14 @@
-import Layout from "/components/Layout";
-import Head from "next/head";
-import EventItem from "@/components/EventItem";
 import Link from "next/link";
+
+import Layout from "/components/Layout";
+import EventItem from "@/components/EventItem";
 
 import { API_URL } from "@/config/index";
 
 export default function Home({ events }) {
-  // const { attributes } = evt;s
   return (
     <div>
-      {/* <Head> <title> DJ Events </title></Head> */}
-      <Layout>
+      <Layout title="Events">
         <h1> Upcoming events </h1>
         {events && events.length === 0 && <h3> No events to show </h3>}
         {events &&

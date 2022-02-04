@@ -1,22 +1,21 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Modal from "@/components/Modal";
-
+import Image from "next/image";
 import moment from "moment";
+import { FaImage } from "react-icons/fa";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import Modal from "@/components/Modal";
 import Layout from "@/components/Layout";
-import { API_URL } from "@/config/index";
-
-import { FaImage } from "react-icons/fa";
 import ImageUpload from "@/components/ImageUpload";
 
-import styles from "@/styles/Form.module.css";
-import Image from "next/image";
+import { API_URL } from "@/config/index";
 import { parseCookies } from "@/helpers/index";
+
+import styles from "@/styles/Form.module.css";
 
 export default function EditEventPage({ evt, token }) {
   console.log(token);

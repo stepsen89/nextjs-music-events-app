@@ -1,18 +1,14 @@
 import Layout from "/components/Layout";
-import Head from "next/head";
+import qs from "qs";
+
 import EventItem from "@/components/EventItem";
+import Pagination from "@/components/Pagination";
 
 import { API_URL } from "@/config/index";
-import Link from "next/link";
-
-import qs from "qs";
-import Pagination from "@/components/Pagination";
 
 const PER_PAGE = 5;
 
 export default function EventsPage({ evts, total, page }) {
-  const lastPage = Math.ceil(total / PER_PAGE);
-
   return (
     <div>
       {/* <Head> <title> DJ Events </title></Head> */}

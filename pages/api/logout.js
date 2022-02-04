@@ -1,4 +1,3 @@
-import { API_URL } from "@/config/index";
 import cookie from "cookie";
 
 // eslint-disable-next-line import/no-anonymous-default-export
